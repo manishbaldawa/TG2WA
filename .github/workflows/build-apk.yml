@@ -1,0 +1,1028 @@
+
+Gemini
+
+New chat
+Library
+Images
+Scheduled
+Customize
+Videos
+New notebook
+Poster Maker
+Maheshwari Services
+Cross-Platform Messaging Automation Utility
+Fix Folder Pinning in Windows
+Fixing Windows 11 Printer Errors
+Photoshop 7 Windows 11 Crash Fix
+शरीर में हिस्टामिन कम करने के उपाय
+Deploying Windows Programs on a VPS
+Telegram to WhatsApp Video Automation
+Why Graph Messenger Hides in X Share Menu
+Windows Subsystem for Android Discontinued
+How to Add Brave Profiles
+Speeding Up Downloads in Brave
+MahaIT Support Contact Details
+आधार कार्ड प्रिंटेबल टेलीग्राम बोट
+नीम के पत्तों के फायदे
+दीवार के पेड़ को जड़ से खत्म करने का तरीका
+साप्ताहिक सुप्रभात संदेश संग्रह
+शराब पीने पर शारीरिक प्रतिक्रिया के कारण
+शरीर की गर्मी शांत करने के उपाय
+Custom Birthday Card Generation
+Homeopathic Remedies for Alcohol Reactions
+Detailed Project Report: J.D. Trading Company
+Warehouse Project Report Generation
+Forwarding Media Albums in Graph Messenger
+Peaceful Devotional Illustration of Ram
+Android Partial and Full Screenshot Apps
+Ganesh Aarti Video Generation
+Alcohol Intolerance vs. Allergy Symptoms
+Excel Tax Invoice Template Generator
+Red Ghagra Choli Outfit Change
+झूला वीडियो जनरेशन अनुरोध
+झूले पर महिला का वीडियो
+Conversation with Gemini
+Create Android apk or script that can share telegram post (with caption) from graph messenger to WhatsApp also WhatsApp post (with caption) to telegram (graph messenger)
+
+To build the right solution for cross-posting between Graph Messenger and WhatsApp without losing media captions, I need a few details on how you want this to work:
+
+Sharing workflow: Do you want to share posts manually from the Android Share menu when viewing a message, or automatically sync messages in the background between specific Telegram channels/chats and WhatsApp groups?
+
+Preferred format: Would you like a script that runs in Termux (using Python or Node.js to bridge Telegram and WhatsApp), an Android Share-menu bridge app project, or a Tasker/MacroDroid automation setup?
+
+Content and app variants: Are you transferring single photos and videos with captions, multi-photo albums, or text posts, and are you using standard WhatsApp (com.whatsapp) or WhatsApp Business (com.whatsapp.w4b) alongside Graph Messenger (ir.ilmili.telegraph)?
+
+I prefer to share telegram and whatsapp posts manually through floating share button using standard WhatsApp (com.whatsapp) alongside Graph Messenger (ir.ilmili.telegraph)?
+
+I've created both a native Android Floating Share Button app implementation (TeleWaFloatingBridge.kt and AndroidManifest.xml) and a ready-to-run floating share script (tg_wa_floating_share.sh) configured for Graph Messenger (ir.ilmili.telegraph) and WhatsApp (com.whatsapp).
+
+Telewafloatingbridge
+
+/**
+Tg Wa Floating Share
+
+XML icon
+AndroidManifest
+ XML 
+What Was Created & How It Works
+Component	Purpose	Key Features
+TeleWaFloatingBridge.kt	Native Android app source (Kotlin)	Renders a draggable floating button (TG ➔ WA / WA ➔ TG), extracts captions via AccessibilityService, and re-hosts media streams via FileProvider
+AndroidManifest.xml	Android app configuration & XML templates	Declares SYSTEM_ALERT_WINDOW, Android 11+ <queries> visibility for com.whatsapp and ir.ilmili.telegraph, and ACTION_SEND / ACTION_SEND_MULTIPLE filters
+tg_wa_floating_share.sh	Ready-to-run script (no APK build required)	Provides an interactive floating overlay window via Termux:Float and an Android Share Sheet hook (termux-file-editor) that sends media + caption in one tap
+Option 1: Using the Ready-to-Run Script (No Compiling Required)
+If you want a floating button on your phone immediately without building an APK in Android Studio, use tg_wa_floating_share.sh with Termux, Termux:API, and Termux:Float:
+
+Grant storage access: Run termux-setup-storage and pkg install termux-api inside Termux.
+
+Install the floating and share hooks: Save tg_wa_floating_share.sh to Termux and run bash tg_wa_floating_share.sh --install.
+
+Use the floating window: Open Termux:Float to keep the compact floating window on screen over Graph Messenger and WhatsApp; copy a post's caption, save/download the media (or share the post directly to Termux from the Android Share menu), and tap 1 (Graph Messenger ➔ WhatsApp) or 2 (WhatsApp ➔ Graph Messenger).
+
+Option 2: Building the Native Android App (TeleWaFloatingBridge.kt)
+If you want a standalone native APK with a draggable pill button (TG ➔ WA / WA ➔ TG):
+
+Add the source files: Create an Empty Activity project in Android Studio with package name com.bridge.telewa, place TeleWaFloatingBridge.kt in app/src/main/java/com/bridge/telewa/, and replace app/src/main/AndroidManifest.xml.
+
+Add the two XML resource files: Copy the accessibility_service_config.xml and file_paths.xml blocks from the bottom comment of AndroidManifest.xml into app/src/main/res/xml/.
+
+Enable permissions on first launch: Open the compiled app, tap Grant Floating Button Overlay Permission and Enable Caption & Share Accessibility Service, and then tap Start Floating Share Button.
+
+Share posts with captions: Select any post in Graph Messenger (ir.ilmili.telegraph) or WhatsApp (com.whatsapp) and tap the floating button (or choose TG ⇄ WA Bridge (With Caption) from the native Share sheet); long-pressing the floating button manually flips the target direction.
+
+Let me know if you'd like a GitHub Actions workflow file (.github/workflows/build-apk.yml) to compile the .apk automatically in the cloud on GitHub without installing Android Studio locally.
+
+yes build apk using github actions workflow file i do not use android studio
+
+I've created a self-contained GitHub Actions workflow file (build-apk.yml) that automatically generates all required Gradle files, XML configs, and Kotlin source code in the cloud to compile and sign your TG-WA-Floating-Bridge.apk without needing Android Studio.
+
+YML icon
+build-apk
+ YML 
+Create a GitHub repository: Open GitHub in your browser, create a new repository (public or private), and tap Add file ➔ Create new file.
+
+Add the workflow file: Type .github/workflows/build-apk.yml in the file name box, paste the contents of build-apk.yml (or upload it to .github/workflows/), and tap Commit changes (if you also upload your customized TeleWaFloatingBridge.kt to the repository root, the workflow will automatically use it).
+
+Run the cloud build: Open the Actions tab in your repository, select Build TG-WA Floating Share APK, and tap Run workflow (it also triggers automatically on every push to main).
+
+Download and install the APK: Wait about 2 minutes for the green checkmark, open the completed workflow run, scroll down to Artifacts, and download TG-WA-Floating-Bridge-APK (unzip it on your phone to install TG-WA-Floating-Bridge.apk).
+
+
+
+
+
+Gemini is AI and can make mistakes.
+
+
+Plan steps
+name: Build TG-WA Floating Share APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Gradle 8.7
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Scaffold Android Project Structure & Resources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p app/src/main/java/com/bridge/telewa
+          mkdir -p app/src/main/res/xml
+
+          # 1. Root settings.gradle.kts
+          cat << 'EOF' > settings.gradle.kts
+          pluginManagement {
+              repositories {
+                  google()
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          rootProject.name = "TeleWaFloatingBridge"
+          include(":app")
+          EOF
+
+          # 2. Root build.gradle.kts
+          cat << 'EOF' > build.gradle.kts
+          plugins {
+              id("com.android.application") version "8.4.2" apply false
+              id("org.jetbrains.kotlin.android") version "1.9.24" apply false
+          }
+          EOF
+
+          # 3. gradle.properties
+          cat << 'EOF' > gradle.properties
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+          android.useAndroidX=true
+          kotlin.code.style=official
+          android.nonTransitiveRClass=true
+          EOF
+
+          # 4. App module app/build.gradle.kts
+          cat << 'EOF' > app/build.gradle.kts
+          plugins {
+              id("com.android.application")
+              id("org.jetbrains.kotlin.android")
+          }
+
+          android {
+              namespace = "com.bridge.telewa"
+              compileSdk = 34
+
+              defaultConfig {
+                  applicationId = "com.bridge.telewa"
+                  minSdk = 24
+                  targetSdk = 33
+                  versionCode = 1
+                  versionName = "1.0"
+              }
+
+              buildTypes {
+                  release {
+                      isMinifyEnabled = false
+                      signingConfig = signingConfigs.getByName("debug")
+                  }
+              }
+
+              compileOptions {
+                  sourceCompatibility = JavaVersion.VERSION_17
+                  targetCompatibility = JavaVersion.VERSION_17
+              }
+
+              kotlinOptions {
+                  jvmTarget = "17"
+              }
+          }
+
+          dependencies {
+              implementation("androidx.core:core-ktx:1.13.1")
+          }
+          EOF
+
+          # 5. Accessibility Service Config XML (ir.ilmili.telegraph & com.whatsapp)
+          cat << 'EOF' > app/src/main/res/xml/accessibility_service_config.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+              android:accessibilityEventTypes="typeWindowStateChanged|typeViewClicked|typeViewSelected|typeWindowContentChanged"
+              android:accessibilityFeedbackType="feedbackGeneric"
+              android:accessibilityFlags="flagReportViewIds|flagRetrieveInteractiveWindows"
+              android:canRetrieveWindowContent="true"
+              android:notificationTimeout="100"
+              android:packageNames="ir.ilmili.telegraph,com.whatsapp" />
+          EOF
+
+          # 6. FileProvider Paths XML
+          cat << 'EOF' > app/src/main/res/xml/file_paths.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <paths xmlns:android="http://schemas.android.com/apk/res/android">
+              <cache-path name="shared_posts" path="shared_posts/" />
+          </paths>
+          EOF
+
+          # 7. AndroidManifest.xml
+          cat << 'EOF' > app/src/main/AndroidManifest.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+              <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+              <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+              <!-- Android 11+ Package Visibility for WhatsApp and Graph Messenger -->
+              <queries>
+                  <package android:name="com.whatsapp" />
+                  <package android:name="ir.ilmili.telegraph" />
+              </queries>
+
+              <application
+                  android:allowBackup="true"
+                  android:label="TG ⇄ WA Share Bridge"
+                  android:supportsRtl="true"
+                  android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+
+                  <activity
+                      android:name=".ShareBridgeActivity"
+                      android:exported="true"
+                      android:label="TG ⇄ WA Bridge (With Caption)"
+                      android:theme="@android:style/Theme.Translucent.NoTitleBar">
+                      <intent-filter>
+                          <action android:name="android.intent.action.SEND" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <data android:mimeType="image/*" />
+                          <data android:mimeType="video/*" />
+                          <data android:mimeType="text/plain" />
+                      </intent-filter>
+                      <intent-filter>
+                          <action android:name="android.intent.action.SEND_MULTIPLE" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <data android:mimeType="image/*" />
+                          <data android:mimeType="video/*" />
+                      </intent-filter>
+                  </activity>
+
+                  <service
+                      android:name=".FloatingShareService"
+                      android:exported="false" />
+
+                  <service
+                      android:name=".PostBridgeAccessibilityService"
+                      android:exported="false"
+                      android:label="TG ⇄ WA Caption &amp; Share Helper"
+                      android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+                      <intent-filter>
+                          <action android:name="android.accessibilityservice.AccessibilityService" />
+                      </intent-filter>
+                      <meta-data
+                          android:name="android.accessibilityservice"
+                          android:resource="@xml/accessibility_service_config" />
+                  </service>
+
+                  <provider
+                      android:name="androidx.core.content.FileProvider"
+                      android:authorities="${applicationId}.fileprovider"
+                      android:exported="false"
+                      android:grantUriPermissions="true">
+                      <meta-data
+                          android:name="android.support.FILE_PROVIDER_PATHS"
+                          android:resource="@xml/file_paths" />
+                  </provider>
+
+              </application>
+          </manifest>
+          EOF
+
+          # 8. Place TeleWaFloatingBridge.kt (uses root file if uploaded, otherwise writes full source)
+          if [[ -f "TeleWaFloatingBridge.kt" ]]; then
+              cp "TeleWaFloatingBridge.kt" app/src/main/java/com/bridge/telewa/TeleWaFloatingBridge.kt
+          elif [[ ! -f "app/src/main/java/com/bridge/telewa/TeleWaFloatingBridge.kt" ]]; then
+              cat << 'KOTLIN_EOF' > app/src/main/java/com/bridge/telewa/TeleWaFloatingBridge.kt
+          package com.bridge.telewa
+
+          import android.accessibilityservice.AccessibilityService
+          import android.annotation.SuppressLint
+          import android.app.Activity
+          import android.app.Notification
+          import android.app.NotificationChannel
+          import android.app.NotificationManager
+          import android.app.PendingIntent
+          import android.app.Service
+          import android.content.ClipData
+          import android.content.ClipboardManager
+          import android.content.Context
+          import android.content.Intent
+          import android.graphics.Color
+          import android.graphics.PixelFormat
+          import android.graphics.Typeface
+          import android.graphics.drawable.GradientDrawable
+          import android.net.Uri
+          import android.os.Build
+          import android.os.Bundle
+          import android.os.Handler
+          import android.os.IBinder
+          import android.os.Looper
+          import android.provider.Settings
+          import android.util.TypedValue
+          import android.view.Gravity
+          import android.view.MotionEvent
+          import android.view.WindowManager
+          import android.view.accessibility.AccessibilityEvent
+          import android.view.accessibility.AccessibilityNodeInfo
+          import android.widget.Button
+          import android.widget.LinearLayout
+          import android.widget.TextView
+          import android.widget.Toast
+          import androidx.core.content.FileProvider
+          import java.io.File
+          import java.io.FileOutputStream
+          import kotlin.math.abs
+
+          object BridgeState {
+              const val PKG_GRAPH_MESSENGER = "ir.ilmili.telegraph"
+              const val PKG_WHATSAPP = "com.whatsapp"
+
+              @Volatile
+              var activeForegroundPackage: String = PKG_GRAPH_MESSENGER
+
+              @Volatile
+              var lastCapturedCaption: String = ""
+
+              @Volatile
+              var lastCaptionTimestampMs: Long = 0L
+
+              @Volatile
+              var pendingAutoIntercept: Boolean = false
+
+              fun recordCaption(text: String) {
+                  val cleaned = text.trim()
+                  if (cleaned.isNotEmpty()) {
+                      lastCapturedCaption = cleaned
+                      lastCaptionTimestampMs = System.currentTimeMillis()
+                  }
+              }
+
+              fun getFreshCaption(maxAgeMs: Long = 30_000L): String? {
+                  val age = System.currentTimeMillis() - lastCaptionTimestampMs
+                  return if (lastCapturedCaption.isNotBlank() && age <= maxAgeMs) {
+                      lastCapturedCaption
+                  } else {
+                      null
+                  }
+              }
+          }
+
+          class MainActivity : Activity() {
+              override fun onCreate(savedInstanceState: Bundle?) {
+                  super.onCreate(savedInstanceState)
+
+                  val root = LinearLayout(this).apply {
+                      orientation = LinearLayout.VERTICAL
+                      setPadding(48, 64, 48, 64)
+                      setBackgroundColor(Color.parseColor("#0F172A"))
+                  }
+
+                  val title = TextView(this).apply {
+                      text = "Graph Messenger ⇄ WhatsApp Bridge"
+                      setTextColor(Color.WHITE)
+                      setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+                      typeface = Typeface.DEFAULT_BOLD
+                      setPadding(0, 0, 0, 24)
+                  }
+
+                  val subtitle = TextView(this).apply {
+                      text = "Share posts (photo/video + caption) manually via a floating button between " +
+                          "Graph Messenger (ir.ilmili.telegraph) and WhatsApp (com.whatsapp)."
+                      setTextColor(Color.parseColor("#94A3B8"))
+                      setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                      setPadding(0, 0, 0, 48)
+                  }
+
+                  val btnOverlay = Button(this).apply {
+                      text = "1. Grant Floating Button Overlay Permission"
+                      setOnClickListener {
+                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this@MainActivity)) {
+                              val intent = Intent(
+                                  Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                  Uri.parse("package:$packageName")
+                              )
+                              startActivity(intent)
+                          } else {
+                              Toast.makeText(context, "Overlay permission already granted!", Toast.LENGTH_SHORT).show()
+                          }
+                      }
+                  }
+
+                  val btnAccessibility = Button(this).apply {
+                      text = "2. Enable Caption & Share Accessibility Service"
+                      setOnClickListener {
+                          startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                      }
+                  }
+
+                  val btnStartBubble = Button(this).apply {
+                      text = "3. Start Floating Share Button"
+                      setOnClickListener {
+                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this@MainActivity)) {
+                              Toast.makeText(context, "Please grant Overlay Permission first.", Toast.LENGTH_SHORT).show()
+                              return@setOnClickListener
+                          }
+                          val serviceIntent = Intent(this@MainActivity, FloatingShareService::class.java)
+                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                              startForegroundService(serviceIntent)
+                          } else {
+                              startService(serviceIntent)
+                          }
+                          Toast.makeText(context, "Floating Share Button active!", Toast.LENGTH_SHORT).show()
+                      }
+                  }
+
+                  val btnStopBubble = Button(this).apply {
+                      text = "Stop Floating Share Button"
+                      setOnClickListener {
+                          stopService(Intent(this@MainActivity, FloatingShareService::class.java))
+                          Toast.makeText(context, "Floating Share Button stopped.", Toast.LENGTH_SHORT).show()
+                      }
+                  }
+
+                  root.addView(title)
+                  root.addView(subtitle)
+                  root.addView(btnOverlay)
+                  root.addView(btnAccessibility)
+                  root.addView(btnStartBubble)
+                  root.addView(btnStopBubble)
+                  setContentView(root)
+              }
+          }
+
+          class FloatingShareService : Service() {
+              private lateinit var windowManager: WindowManager
+              private var floatingView: TextView? = null
+              private val mainHandler = Handler(Looper.getMainLooper())
+
+              companion object {
+                  private const val CHANNEL_ID = "telewa_floating_bridge"
+                  private const val NOTIFICATION_ID = 1001
+                  var instance: FloatingShareService? = null
+              }
+
+              override fun onCreate() {
+                  super.onCreate()
+                  instance = this
+                  startForegroundNotification()
+                  createFloatingBubble()
+              }
+
+              private fun startForegroundNotification() {
+                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                      val channel = NotificationChannel(
+                          CHANNEL_ID,
+                          "Floating Share Bridge",
+                          NotificationManager.IMPORTANCE_LOW
+                      )
+                      val nm = getSystemService(NotificationManager::class.java)
+                      nm.createNotificationChannel(channel)
+                  }
+
+                  val pendingIntent = PendingIntent.getActivity(
+                      this,
+                      0,
+                      Intent(this, MainActivity::class.java),
+                      PendingIntent.FLAG_IMMUTABLE
+                  )
+
+                  val notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                      Notification.Builder(this, CHANNEL_ID)
+                          .setContentTitle("TG ⇄ WA Floating Share Active")
+                          .setContentText("Tap floating button after selecting a post in Graph Messenger or WhatsApp")
+                          .setSmallIcon(android.R.drawable.ic_menu_share)
+                          .setContentIntent(pendingIntent)
+                          .build()
+                  } else {
+                      @Suppress("DEPRECATION")
+                      Notification.Builder(this)
+                          .setContentTitle("TG ⇄ WA Floating Share Active")
+                          .setContentText("Tap floating button to cross-share post + caption")
+                          .setSmallIcon(android.R.drawable.ic_menu_share)
+                          .setContentIntent(pendingIntent)
+                          .build()
+                  }
+
+                  startForeground(NOTIFICATION_ID, notification)
+              }
+
+              @SuppressLint("ClickableViewAccessibility")
+              private fun createFloatingBubble() {
+                  windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+
+                  val bubble = TextView(this).apply {
+                      text = "TG ➔ WA"
+                      setTextColor(Color.WHITE)
+                      setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                      typeface = Typeface.DEFAULT_BOLD
+                      gravity = Gravity.CENTER
+                      setPadding(28, 20, 28, 20)
+                      background = GradientDrawable().apply {
+                          shape = GradientDrawable.RECTANGLE
+                          cornerRadius = 64f
+                          setColor(Color.parseColor("#10B981"))
+                          setStroke(3, Color.WHITE)
+                      }
+                  }
+
+                  val layoutFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                      WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                  } else {
+                      @Suppress("DEPRECATION")
+                      WindowManager.LayoutParams.TYPE_PHONE
+                  }
+
+                  val params = WindowManager.LayoutParams(
+                      WindowManager.LayoutParams.WRAP_CONTENT,
+                      WindowManager.LayoutParams.WRAP_CONTENT,
+                      layoutFlag,
+                      WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                      PixelFormat.TRANSLUCENT
+                  ).apply {
+                      gravity = Gravity.TOP or Gravity.START
+                      x = 24
+                      y = 420
+                  }
+
+                  var initialX = 0
+                  var initialY = 0
+                  var initialTouchX = 0f
+                  var initialTouchY = 0f
+                  var touchStartTime = 0L
+
+                  bubble.setOnTouchListener { _, event ->
+                      when (event.action) {
+                          MotionEvent.ACTION_DOWN -> {
+                              initialX = params.x
+                              initialY = params.y
+                              initialTouchX = event.rawX
+                              initialTouchY = event.rawY
+                              touchStartTime = System.currentTimeMillis()
+                              true
+                          }
+                          MotionEvent.ACTION_MOVE -> {
+                              params.x = initialX + (event.rawX - initialTouchX).toInt()
+                              params.y = initialY + (event.rawY - initialTouchY).toInt()
+                              windowManager.updateViewLayout(bubble, params)
+                              true
+                          }
+                          MotionEvent.ACTION_UP -> {
+                              val dx = abs(event.rawX - initialTouchX)
+                              val dy = abs(event.rawY - initialTouchY)
+                              val duration = System.currentTimeMillis() - touchStartTime
+                              if (dx < 18 && dy < 18) {
+                                  if (duration >= 600L) {
+                                      toggleDirectionManually()
+                                  } else {
+                                      onFloatingButtonTapped()
+                                  }
+                              }
+                              true
+                          }
+                          else -> false
+                      }
+                  }
+
+                  floatingView = bubble
+                  windowManager.addView(bubble, params)
+                  refreshBubbleAppearance()
+              }
+
+              fun refreshBubbleAppearance() {
+                  mainHandler.post {
+                      val bubble = floatingView ?: return@post
+                      val isGraphActive = BridgeState.activeForegroundPackage == BridgeState.PKG_GRAPH_MESSENGER
+                      val bg = bubble.background as? GradientDrawable
+                      if (isGraphActive) {
+                          bubble.text = "TG ➔ WA"
+                          bg?.setColor(Color.parseColor("#10B981"))
+                      } else {
+                          bubble.text = "WA ➔ TG"
+                          bg?.setColor(Color.parseColor("#0284C7"))
+                      }
+                  }
+              }
+
+              private fun toggleDirectionManually() {
+                  BridgeState.activeForegroundPackage =
+                      if (BridgeState.activeForegroundPackage == BridgeState.PKG_GRAPH_MESSENGER) {
+                          BridgeState.PKG_WHATSAPP
+                      } else {
+                          BridgeState.PKG_GRAPH_MESSENGER
+                      }
+                  refreshBubbleAppearance()
+                  val targetLabel = if (BridgeState.activeForegroundPackage == BridgeState.PKG_GRAPH_MESSENGER) {
+                      "Graph Messenger ➔ WhatsApp"
+                  } else {
+                      "WhatsApp ➔ Graph Messenger"
+                  }
+                  Toast.makeText(this, "Mode switched: $targetLabel", Toast.LENGTH_SHORT).show()
+              }
+
+              private fun onFloatingButtonTapped() {
+                  val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                  val clipText = clipboard.primaryClip?.getItemAt(0)?.coerceToText(this)?.toString()
+                  if (!clipText.isNullOrBlank() && BridgeState.getFreshCaption() == null) {
+                      BridgeState.recordCaption(clipText)
+                  }
+
+                  val a11yService = PostBridgeAccessibilityService.instance
+                  if (a11yService != null) {
+                      val triggered = a11yService.captureCaptionAndTriggerShare()
+                      if (triggered) {
+                          Toast.makeText(
+                              this,
+                              "Caption captured — select 'TG⇄WA Bridge' in Share sheet...",
+                              Toast.LENGTH_SHORT
+                          ).show()
+                          return
+                      }
+                  }
+
+                  val captionOnly = BridgeState.getFreshCaption() ?: clipText
+                  if (!captionOnly.isNullOrBlank()) {
+                      val targetPkg = if (BridgeState.activeForegroundPackage == BridgeState.PKG_GRAPH_MESSENGER) {
+                          BridgeState.PKG_WHATSAPP
+                      } else {
+                          BridgeState.PKG_GRAPH_MESSENGER
+                      }
+                      val directTextIntent = Intent(Intent.ACTION_SEND).apply {
+                          type = "text/plain"
+                          putExtra(Intent.EXTRA_TEXT, captionOnly)
+                          setPackage(targetPkg)
+                          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                      }
+                      try {
+                          startActivity(directTextIntent)
+                      } catch (e: Exception) {
+                          Toast.makeText(this, "Target app ($targetPkg) not installed.", Toast.LENGTH_SHORT).show()
+                      }
+                  } else {
+                      Toast.makeText(
+                          this,
+                          "Select a post first (or tap Share -> TG⇄WA Bridge) to forward media + caption.",
+                          Toast.LENGTH_SHORT
+                      ).show()
+                  }
+              }
+
+              override fun onDestroy() {
+                  super.onDestroy()
+                  instance = null
+                  floatingView?.let { windowManager.removeView(it) }
+              }
+
+              override fun onBind(intent: Intent?): IBinder? = null
+          }
+
+          class PostBridgeAccessibilityService : AccessibilityService() {
+              companion object {
+                  var instance: PostBridgeAccessibilityService? = null
+                  private val TIMESTAMP_REGEX = Regex("^\\d{1,2}:\\d{2}(\\s?[APap][Mm])?$")
+              }
+
+              override fun onServiceConnected() {
+                  super.onServiceConnected()
+                  instance = this
+              }
+
+              override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+                  val pkg = event?.packageName?.toString() ?: return
+
+                  if (pkg == BridgeState.PKG_GRAPH_MESSENGER || pkg == BridgeState.PKG_WHATSAPP) {
+                      if (BridgeState.activeForegroundPackage != pkg) {
+                          BridgeState.activeForegroundPackage = pkg
+                          FloatingShareService.instance?.refreshBubbleAppearance()
+                      }
+                      rootInActiveWindow?.let { root ->
+                          val extracted = findLongestMessageCaption(root, pkg)
+                          if (!extracted.isNullOrBlank()) {
+                              BridgeState.recordCaption(extracted)
+                          }
+                      }
+                  }
+              }
+
+              fun captureCaptionAndTriggerShare(): Boolean {
+                  val root = rootInActiveWindow ?: return false
+                  val pkg = root.packageName?.toString() ?: BridgeState.activeForegroundPackage
+
+                  val caption = findLongestMessageCaption(root, pkg)
+                  if (!caption.isNullOrBlank()) {
+                      BridgeState.recordCaption(caption)
+                      val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                      clipboard.setPrimaryClip(ClipData.newPlainText("post_caption", caption))
+                  }
+
+                  val shareNode = findShareActionNode(root)
+                  if (shareNode != null) {
+                      BridgeState.pendingAutoIntercept = true
+                      return shareNode.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+                  }
+                  return false
+              }
+
+              private fun findLongestMessageCaption(root: AccessibilityNodeInfo, pkg: String): String? {
+                  val candidates = mutableListOf<String>()
+                  val ignoredLabels = setOf(
+                      "Share", "Forward", "Reply", "Copy", "Delete", "Info",
+                      "Message", "Type a message", "Search", "Mute", "Star"
+                  )
+
+                  fun traverse(node: AccessibilityNodeInfo?) {
+                      if (node == null) return
+                      val viewId = node.viewIdResourceName ?: ""
+                      val text = node.text?.toString()?.trim()
+                      val desc = node.contentDescription?.toString()?.trim()
+
+                      if (pkg == BridgeState.PKG_WHATSAPP &&
+                          (viewId.endsWith(":id/caption") || viewId.endsWith(":id/message_text"))
+                      ) {
+                          if (!text.isNullOrBlank()) candidates.add(text)
+                      }
+
+                      if (!text.isNullOrBlank() && text.length > 3 && text !in ignoredLabels) {
+                          if (!TIMESTAMP_REGEX.matches(text)) {
+                              candidates.add(text)
+                          }
+                      } else if (pkg == BridgeState.PKG_GRAPH_MESSENGER && !desc.isNullOrBlank() && desc.length > 5) {
+                          val cleanedDesc = cleanTelegramContentDescription(desc)
+                          if (cleanedDesc.isNotBlank() && cleanedDesc !in ignoredLabels) {
+                              candidates.add(cleanedDesc)
+                          }
+                      }
+
+                      for (i in 0 until node.childCount) {
+                          traverse(node.getChild(i))
+                      }
+                  }
+
+                  traverse(root)
+                  return candidates.maxByOrNull { it.length }
+              }
+
+              private fun cleanTelegramContentDescription(raw: String): String {
+                  return raw
+                      .replace(Regex("^(Photo|Video|GIF|Sticker|File),\\s*", RegexOption.IGNORE_CASE), "")
+                      .replace(Regex(",?\\s*(Received|Sent|Viewed).*$", RegexOption.IGNORE_CASE), "")
+                      .trim()
+              }
+
+              private fun findShareActionNode(root: AccessibilityNodeInfo): AccessibilityNodeInfo? {
+                  val shareKeywords = listOf("Share", "share")
+                  for (keyword in shareKeywords) {
+                      val matches = root.findAccessibilityNodeInfosByText(keyword)
+                      for (node in matches) {
+                          if (node.isClickable) return node
+                          if (node.parent?.isClickable == true) return node.parent
+                      }
+                  }
+                  fun searchDesc(node: AccessibilityNodeInfo?): AccessibilityNodeInfo? {
+                      if (node == null) return null
+                      val desc = node.contentDescription?.toString() ?: ""
+                      if (desc.equals("Share", ignoreCase = true)) {
+                          return if (node.isClickable) node else node.parent
+                      }
+                      for (i in 0 until node.childCount) {
+                          val found = searchDesc(node.getChild(i))
+                          if (found != null) return found
+                      }
+                      return null
+                  }
+                  return searchDesc(root)
+              }
+
+              override fun onInterrupt() {}
+
+              override fun onDestroy() {
+                  super.onDestroy()
+                  instance = null
+              }
+          }
+
+          class ShareBridgeActivity : Activity() {
+              override fun onCreate(savedInstanceState: Bundle?) {
+                  super.onCreate(savedInstanceState)
+                  handleIncomingShare(intent)
+                  finish()
+              }
+
+              private fun handleIncomingShare(incoming: Intent?) {
+                  if (incoming == null) return
+
+                  val referrerPkg = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                      referrer?.host
+                  } else {
+                      null
+                  }
+                  val sourcePkg = when {
+                      referrerPkg == BridgeState.PKG_GRAPH_MESSENGER -> BridgeState.PKG_GRAPH_MESSENGER
+                      referrerPkg == BridgeState.PKG_WHATSAPP -> BridgeState.PKG_WHATSAPP
+                      else -> BridgeState.activeForegroundPackage
+                  }
+                  val targetPkg = if (sourcePkg == BridgeState.PKG_GRAPH_MESSENGER) {
+                      BridgeState.PKG_WHATSAPP
+                  } else {
+                      BridgeState.PKG_GRAPH_MESSENGER
+                  }
+
+                  val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                  val clipText = clipboard.primaryClip?.getItemAt(0)?.coerceToText(this)?.toString()
+                  val caption = incoming.getStringExtra(Intent.EXTRA_TEXT)?.takeIf { it.isNotBlank() }
+                      ?: BridgeState.getFreshCaption()
+                      ?: clipText?.takeIf { it.isNotBlank() }
+                      ?: ""
+
+                  if (caption.isNotBlank()) {
+                      clipboard.setPrimaryClip(ClipData.newPlainText("post_caption", caption))
+                  }
+
+                  val mimeType = incoming.type ?: "*/*"
+
+                  when (incoming.action) {
+                      Intent.ACTION_SEND -> {
+                          val streamUri = getStreamUri(incoming)
+                          if (streamUri != null) {
+                              val rehostedUri = rehostUriToCache(streamUri, mimeType) ?: streamUri
+                              launchTargetShare(
+                                  targetPkg = targetPkg,
+                                  action = Intent.ACTION_SEND,
+                                  mimeType = mimeType,
+                                  singleUri = rehostedUri,
+                                  multiUris = null,
+                                  caption = caption
+                              )
+                          } else if (caption.isNotBlank()) {
+                              launchTargetShare(
+                                  targetPkg = targetPkg,
+                                  action = Intent.ACTION_SEND,
+                                  mimeType = "text/plain",
+                                  singleUri = null,
+                                  multiUris = null,
+                                  caption = caption
+                              )
+                          }
+                      }
+                      Intent.ACTION_SEND_MULTIPLE -> {
+                          val uris = getStreamUriList(incoming)
+                          if (!uris.isNullOrEmpty()) {
+                              val rehostedList = ArrayList<Uri>()
+                              for (u in uris) {
+                                  rehostedList.add(rehostUriToCache(u, mimeType) ?: u)
+                              }
+                              launchTargetShare(
+                                  targetPkg = targetPkg,
+                                  action = Intent.ACTION_SEND_MULTIPLE,
+                                  mimeType = mimeType,
+                                  singleUri = null,
+                                  multiUris = rehostedList,
+                                  caption = caption
+                              )
+                          }
+                      }
+                  }
+              }
+
+              private fun getStreamUri(intent: Intent): Uri? {
+                  return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                      intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                  } else {
+                      @Suppress("DEPRECATION")
+                      intent.getParcelableExtra(Intent.EXTRA_STREAM) as? Uri
+                  }
+              }
+
+              private fun getStreamUriList(intent: Intent): ArrayList<Uri>? {
+                  return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                      intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                  } else {
+                      @Suppress("DEPRECATION")
+                      intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM)
+                  }
+              }
+
+              private fun rehostUriToCache(sourceUri: Uri, mimeType: String): Uri? {
+                  return try {
+                      val sharedDir = File(cacheDir, "shared_posts").apply { mkdirs() }
+                      val cutoff = System.currentTimeMillis() - 600_000L
+                      sharedDir.listFiles()?.forEach { if (it.lastModified() < cutoff) it.delete() }
+
+                      val ext = when {
+                          mimeType.contains("video") -> ".mp4"
+                          mimeType.contains("png") -> ".png"
+                          mimeType.contains("gif") -> ".gif"
+                          mimeType.contains("webp") -> ".webp"
+                          mimeType.contains("image") -> ".jpg"
+                          else -> ".bin"
+                      }
+                      val outFile = File(sharedDir, "post_${System.currentTimeMillis()}$ext")
+                      contentResolver.openInputStream(sourceUri)?.use { input ->
+                          FileOutputStream(outFile).use { output ->
+                              input.copyTo(output)
+                          }
+                      }
+                      FileProvider.getUriForFile(this, "$packageName.fileprovider", outFile)
+                  } catch (e: Exception) {
+                      null
+                  }
+              }
+
+              private fun launchTargetShare(
+                  targetPkg: String,
+                  action: String,
+                  mimeType: String,
+                  singleUri: Uri?,
+                  multiUris: ArrayList<Uri>?,
+                  caption: String
+              ) {
+                  val outIntent = Intent(action).apply {
+                      type = mimeType
+                      setPackage(targetPkg)
+                      addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+                      if (caption.isNotBlank()) {
+                          putExtra(Intent.EXTRA_TEXT, caption)
+                      }
+
+                      if (singleUri != null) {
+                          putExtra(Intent.EXTRA_STREAM, singleUri)
+                          clipData = ClipData.newUri(contentResolver, "shared_media", singleUri)
+                          grantUriPermission(targetPkg, singleUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                      } else if (!multiUris.isNullOrEmpty()) {
+                          putParcelableArrayListExtra(Intent.EXTRA_STREAM, multiUris)
+                          val clip = ClipData.newUri(contentResolver, "shared_media", multiUris[0])
+                          for (i in 1 until multiUris.size) {
+                              clip.addItem(ClipData.Item(multiUris[i]))
+                          }
+                          clipData = clip
+                          multiUris.forEach { uri ->
+                              grantUriPermission(targetPkg, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                          }
+                      }
+                  }
+
+                  try {
+                      startActivity(outIntent)
+                  } catch (e: Exception) {
+                      Toast.makeText(
+                          this,
+                          "Could not open $targetPkg — please verify it is installed.",
+                          Toast.LENGTH_LONG
+                      ).show()
+                  }
+              }
+          }
+          KOTLIN_EOF
+          fi
+
+      - name: Build Signed Debug APK with Gradle
+        run: |
+          gradle assembleDebug --no-daemon
+          cp app/build/outputs/apk/debug/app-debug.apk TG-WA-Floating-Bridge.apk
+
+      - name: Upload Ready-to-Install APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TG-WA-Floating-Bridge-APK
+          path: TG-WA-Floating-Bridge.apk
+build-apk.yml
+Displaying build-apk.yml.
